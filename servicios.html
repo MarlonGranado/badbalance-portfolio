@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Servicios y contratación — Badbalance</title>
+<title data-i18n="title">Servicios y contratación — Badbalance</title>
 <meta name="description" content="Servicios fotográficos de Badbalance: cotiza tu sesión, revisa el contrato y solicita tu invoice.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,14 @@ a { color: inherit; }
 .brand { font-family: var(--serif); font-size: 1.4rem; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; }
 .back { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .3s; }
 .back:hover { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.lang-toggle {
+  background: transparent; border: 1px solid var(--muted); color: var(--text);
+  font-family: var(--sans); font-size: .72rem; font-weight: 500; letter-spacing: .12em;
+  padding: .45rem .8rem; cursor: pointer; border-radius: 999px;
+  transition: border-color .3s, color .3s;
+}
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
 .page-hero { padding: clamp(2.5rem, 7vw, 4.5rem) 0 2rem; }
 .kicker { letter-spacing: .35em; text-transform: uppercase; font-size: .75rem; color: var(--accent); margin-bottom: 1rem; }
@@ -121,167 +129,291 @@ footer a { color: var(--accent); text-decoration: none; }
 </head>
 <body>
 
-<div class="maintenance"><span>⚠ Página en mantenimiento — versión de prueba: precios estimados, no finales</span></div>
+<div class="maintenance"><span data-i18n="maintenance">⚠ Página en mantenimiento — versión de prueba: precios estimados, no finales</span></div>
 
 <nav class="nav">
   <a class="brand" href="index.html">Badbalance</a>
-  <a class="back" href="index.html">← Volver al portafolio</a>
+  <div class="nav-right">
+    <button class="lang-toggle" id="langToggle" aria-label="Switch to English">EN</button>
+    <a class="back" href="index.html" data-i18n="back">← Volver al portafolio</a>
+  </div>
 </nav>
 
 <div class="wrap">
   <header class="page-hero">
-    <p class="kicker">Contratación</p>
-    <h1>Servicios &amp; Invoice</h1>
-    <p class="lede">Arma tu cotización en segundos: elige el servicio, las horas y la dirección, y obtén un precio aproximado. Todo con contrato y con invoice.</p>
+    <p class="kicker" data-i18n="kicker">Contratación</p>
+    <h1 data-i18n="h1">Servicios &amp; Invoice</h1>
+    <p class="lede" data-i18n="lede">Arma tu cotización en segundos: elige el servicio, las horas y la dirección, y obtén un precio aproximado. Todo con contrato y con invoice.</p>
   </header>
 
   <section class="block" id="servicios">
-    <h2><span class="num">01</span>Servicios</h2>
+    <h2><span class="num">01</span><span data-i18n="s1">Servicios</span></h2>
     <div class="services" id="serviceCards"></div>
     <div class="notice">
-      <strong>Precios de prueba.</strong>
-      <p>Los precios mostrados son aproximados y están en fase de prueba: estamos trabajando en la lista oficial. La cotización final se confirma por escrito antes de la sesión.</p>
+      <strong data-i18n="test_prices">Precios de prueba.</strong>
+      <p data-i18n="test_note">Los precios mostrados son aproximados y están en fase de prueba: estamos trabajando en la lista oficial. La cotización final se confirma por escrito antes de la sesión.</p>
     </div>
   </section>
 
   <section class="block" id="cotizador">
-    <h2><span class="num">02</span>Cotizador</h2>
+    <h2><span class="num">02</span><span data-i18n="s2">Cotizador</span></h2>
     <div class="estimator">
       <div class="two">
         <div class="field">
-          <label for="q-servicio">Servicio</label>
+          <label for="q-servicio" data-i18n="f_service">Servicio</label>
           <select id="q-servicio"></select>
         </div>
         <div class="field">
-          <label>Horas de sesión</label>
+          <label data-i18n="f_hours">Horas de sesión</label>
           <div class="hours-ctrl">
-            <button type="button" id="h-minus" aria-label="Menos horas">−</button>
-            <div class="hours-val"><span id="h-val">2</span> <small>hrs</small></div>
-            <button type="button" id="h-plus" aria-label="Más horas">+</button>
+            <button type="button" id="h-minus" aria-label="Menos horas" data-i18n-aria="aria_less">−</button>
+            <div class="hours-val"><span id="h-val">2</span> <small data-i18n="hrs">hrs</small></div>
+            <button type="button" id="h-plus" aria-label="Más horas" data-i18n-aria="aria_more">+</button>
           </div>
         </div>
       </div>
       <div class="field">
-        <label for="q-dir">Dirección de la sesión</label>
-        <input id="q-dir" type="text" placeholder="Ej. 1021 Charles Joseph Cv, Hutto TX">
+        <label for="q-dir" data-i18n="f_addr">Dirección de la sesión</label>
+        <input id="q-dir" type="text" placeholder="Ej. 1021 Charles Joseph Cv, Hutto TX" data-i18n-ph="ph_addr">
       </div>
       <div class="quote">
-        <h4>Tu cotización aproximada</h4>
+        <h4 data-i18n="q_title">Tu cotización aproximada</h4>
         <div id="q-lines"></div>
-        <div class="qline total"><span>Total estimado</span><strong id="q-total">$0</strong></div>
-        <p class="test-note">* Precio aproximado de prueba. El traslado se estima de forma fija y se confirma según la distancia real.</p>
+        <div class="qline total"><span data-i18n="q_total">Total estimado</span><strong id="q-total">$0</strong></div>
+        <p class="test-note" data-i18n="q_note">* Precio aproximado de prueba. El traslado se estima de forma fija y se confirma según la distancia real.</p>
       </div>
       <div class="btn-row">
-        <button class="btn" type="button" id="q-to-invoice">Solicitar invoice con esta cotización</button>
+        <button class="btn" type="button" id="q-to-invoice" data-i18n="q_invoice">Solicitar invoice con esta cotización</button>
       </div>
     </div>
   </section>
 
   <section class="block" id="contrato">
-    <h2><span class="num">03</span>Contrato de servicios</h2>
+    <h2><span class="num">03</span><span data-i18n="s3">Contrato de servicios</span></h2>
     <div class="contract">
       <ol>
-        <li><strong>Objeto.</strong> El fotógrafo prestará los servicios fotográficos descritos en la cotización aprobada por el cliente.</li>
-        <li><strong>Reserva.</strong> La fecha queda reservada con un anticipo del 30% del total. El anticipo no es reembolsable.</li>
-        <li><strong>Pago.</strong> El saldo restante se paga el día de la sesión o antes de la entrega del material final. Se emite invoice por cada pago.</li>
-        <li><strong>Entrega.</strong> Galería digital en alta resolución en un plazo de 7 a 14 días hábiles después de la sesión, salvo acuerdo distinto.</li>
-        <li><strong>Derechos de uso.</strong> El fotógrafo conserva los derechos de autor. El cliente recibe una licencia de uso según lo acordado (personal o comercial). El fotógrafo podrá mostrar las fotografías en su portafolio, salvo que el cliente solicite lo contrario por escrito.</li>
-        <li><strong>Cancelación.</strong> El cliente puede cancelar o reprogramar con un mínimo de 72 horas de aviso. El anticipo no es reembolsable, pero puede aplicarse a una nueva fecha dentro de 60 días.</li>
-        <li><strong>Fuerza mayor.</strong> Si el clima u otra causa mayor impide la sesión, se reprograma sin costo adicional.</li>
-        <li><strong>Aceptación.</strong> Al solicitar un invoice, el cliente confirma haber leído y aceptado este contrato.</li>
+        <li data-i18n="c1"><strong>Objeto.</strong> El fotógrafo prestará los servicios fotográficos descritos en la cotización aprobada por el cliente.</li>
+        <li data-i18n="c2"><strong>Reserva.</strong> La fecha queda reservada con un anticipo del 30% del total. El anticipo no es reembolsable.</li>
+        <li data-i18n="c3"><strong>Pago.</strong> El saldo restante se paga el día de la sesión o antes de la entrega del material final. Se emite invoice por cada pago.</li>
+        <li data-i18n="c4"><strong>Entrega.</strong> Galería digital en alta resolución en un plazo de 7 a 14 días hábiles después de la sesión, salvo acuerdo distinto.</li>
+        <li data-i18n="c5"><strong>Derechos de uso.</strong> El fotógrafo conserva los derechos de autor. El cliente recibe una licencia de uso según lo acordado (personal o comercial). El fotógrafo podrá mostrar las fotografías en su portafolio, salvo que el cliente solicite lo contrario por escrito.</li>
+        <li data-i18n="c6"><strong>Cancelación.</strong> El cliente puede cancelar o reprogramar con un mínimo de 72 horas de aviso. El anticipo no es reembolsable, pero puede aplicarse a una nueva fecha dentro de 60 días.</li>
+        <li data-i18n="c7"><strong>Fuerza mayor.</strong> Si el clima u otra causa mayor impide la sesión, se reprograma sin costo adicional.</li>
+        <li data-i18n="c8"><strong>Aceptación.</strong> Al solicitar un invoice, el cliente confirma haber leído y aceptado este contrato.</li>
       </ol>
-      <p class="fine">Contrato base de referencia. Los términos finales de cada proyecto se confirman por escrito antes de la sesión.</p>
+      <p class="fine" data-i18n="c_fine">Contrato base de referencia. Los términos finales de cada proyecto se confirman por escrito antes de la sesión.</p>
       <div class="btn-row" style="margin-top:1.2rem">
-        <button class="btn" type="button" onclick="window.print()">Imprimir contrato</button>
+        <button class="btn" type="button" onclick="window.print()" data-i18n="c_print">Imprimir contrato</button>
       </div>
     </div>
   </section>
 
   <section class="block" id="invoice">
-    <h2><span class="num">04</span>Solicitar invoice</h2>
+    <h2><span class="num">04</span><span data-i18n="s4">Solicitar invoice</span></h2>
     <form class="invoice" id="invoiceForm">
       <div class="two">
         <div class="field">
-          <label for="f-nombre">Nombre completo *</label>
-          <input id="f-nombre" type="text" required placeholder="Tu nombre">
+          <label for="f-nombre" data-i18n="i_name">Nombre completo *</label>
+          <input id="f-nombre" type="text" required placeholder="Tu nombre" data-i18n-ph="ph_name">
         </div>
         <div class="field">
-          <label for="f-email">Email *</label>
-          <input id="f-email" type="email" required placeholder="tucorreo@ejemplo.com">
+          <label for="f-email" data-i18n="i_email">Email *</label>
+          <input id="f-email" type="email" required placeholder="tucorreo@ejemplo.com" data-i18n-ph="ph_email">
         </div>
       </div>
       <div class="two">
         <div class="field">
-          <label for="f-tel">Teléfono (opcional)</label>
+          <label for="f-tel" data-i18n="i_phone">Teléfono (opcional)</label>
           <input id="f-tel" type="tel" placeholder="+1 ...">
         </div>
         <div class="field">
-          <label for="f-fecha">Fecha tentativa</label>
+          <label for="f-fecha" data-i18n="i_date">Fecha tentativa</label>
           <input id="f-fecha" type="date">
         </div>
       </div>
       <div class="field">
-        <label for="f-detalles">Detalles del proyecto</label>
-        <textarea id="f-detalles" placeholder="Cuéntame qué tienes en mente: lugar, cantidad de personas, idea general…"></textarea>
+        <label for="f-detalles" data-i18n="i_details">Detalles del proyecto</label>
+        <textarea id="f-detalles" placeholder="Cuéntame qué tienes en mente: lugar, cantidad de personas, idea general…" data-i18n-ph="ph_details"></textarea>
       </div>
       <label class="accept">
         <input type="checkbox" id="f-accept" required>
-        <span>He leído y acepto el <a href="#contrato">contrato de servicios</a>. *</span>
+        <span data-i18n="i_accept">He leído y acepto el <a href="#contrato">contrato de servicios</a>. *</span>
       </label>
       <div class="btn-row">
-        <button class="btn" type="submit">Enviar solicitud</button>
+        <button class="btn" type="submit" data-i18n="i_send">Enviar solicitud</button>
       </div>
-      <p class="hint">Al enviar, se abrirá tu app de correo con la solicitud lista para mandar. Sin compromiso.</p>
+      <p class="hint" data-i18n="i_hint">Al enviar, se abrirá tu app de correo con la solicitud lista para mandar. Sin compromiso.</p>
     </form>
   </section>
 </div>
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Badbalance · Página en mantenimiento — versión de prueba</span>
-    <a href="index.html">← Volver al portafolio</a>
+    <span data-i18n="footer">© 2026 Badbalance · Página en mantenimiento — versión de prueba</span>
+    <a href="index.html" data-i18n="back">← Volver al portafolio</a>
   </div>
 </footer>
 
 <script>
 // Placeholder rates (TEST) — to be firmed up later
 const SERVICES = [
-  { id: 'retrato',   name: 'Sesión de retrato',    desc: 'Retratos editoriales y personales en locación o estudio.', base: 120, included: 1, rate: 60 },
-  { id: 'eventos',   name: 'Cobertura de eventos', desc: 'Fiestas, cumpleaños, graduaciones y celebraciones.',       base: 200, included: 2, rate: 80 },
-  { id: 'deporte',   name: 'Fotografía deportiva', desc: 'Acción congelada: fútbol, motociclismo y aire libre.',    base: 150, included: 2, rate: 70 },
-  { id: 'auto',      name: 'Sesión automotriz',    desc: 'Tu moto o carro como protagonista, estética cine.',        base: 130, included: 1, rate: 60 },
-  { id: 'producto',  name: 'Producto y marca',     desc: 'Fotografía comercial para negocios y redes sociales.',     base: 180, included: 2, rate: 75 },
-  { id: 'urbana',    name: 'Sesión urbana',        desc: 'Retratos con la ciudad de fondo, look editorial.',         base: 120, included: 1, rate: 60 },
+  { id: 'retrato',   name: 'Sesión de retrato',    name_en: 'Portrait session',   desc: 'Retratos editoriales y personales en locación o estudio.', desc_en: 'Editorial and personal portraits on location or in studio.', base: 120, included: 1, rate: 60 },
+  { id: 'eventos',   name: 'Cobertura de eventos', name_en: 'Event coverage',     desc: 'Fiestas, cumpleaños, graduaciones y celebraciones.',       desc_en: 'Parties, birthdays, graduations and celebrations.',             base: 200, included: 2, rate: 80 },
+  { id: 'deporte',   name: 'Fotografía deportiva', name_en: 'Sports photography', desc: 'Acción congelada: fútbol, motociclismo y aire libre.',    desc_en: 'Frozen action: soccer, motorcycling and the outdoors.',       base: 150, included: 2, rate: 70 },
+  { id: 'auto',      name: 'Sesión automotriz',    name_en: 'Automotive session', desc: 'Tu moto o carro como protagonista, estética cine.',        desc_en: 'Your bike or car as the star, with a cinematic look.',        base: 130, included: 1, rate: 60 },
+  { id: 'producto',  name: 'Producto y marca',     name_en: 'Product & branding', desc: 'Fotografía comercial para negocios y redes sociales.',     desc_en: 'Commercial photography for businesses and social media.',    base: 180, included: 2, rate: 75 },
+  { id: 'urbana',    name: 'Sesión urbana',        name_en: 'Urban session',      desc: 'Retratos con la ciudad de fondo, look editorial.',         desc_en: 'Portraits with the city as backdrop, editorial look.',        base: 120, included: 1, rate: 60 },
 ];
+function sname(s) { return currentLangS === 'en' ? s.name_en : s.name; }
+function sdesc(s) { return currentLangS === 'en' ? s.desc_en : s.desc; }
 const TRAVEL_FLAT = 35;
 const $ = id => document.getElementById(id);
+
+const I18N_S = {
+es: {
+  title: "Servicios y contratación — Badbalance",
+  meta_desc: "Servicios fotográficos de Badbalance: cotiza tu sesión, revisa el contrato y solicita tu invoice.",
+  maintenance: "⚠ Página en mantenimiento — versión de prueba: precios estimados, no finales",
+  back: "← Volver al portafolio", kicker: "Contratación", h1: "Servicios &amp; Invoice",
+  lede: "Arma tu cotización en segundos: elige el servicio, las horas y la dirección, y obtén un precio aproximado. Todo con contrato y con invoice.",
+  s1: "Servicios", s2: "Cotizador", s3: "Contrato de servicios", s4: "Solicitar invoice",
+  test_prices: "Precios de prueba.",
+  test_note: "Los precios mostrados son aproximados y están en fase de prueba: estamos trabajando en la lista oficial. La cotización final se confirma por escrito antes de la sesión.",
+  f_service: "Servicio", f_hours: "Horas de sesión", hrs: "hrs", f_addr: "Dirección de la sesión",
+  ph_addr: "Ej. 1021 Charles Joseph Cv, Hutto TX",
+  q_title: "Tu cotización aproximada", q_total: "Total estimado",
+  q_note: "* Precio aproximado de prueba. El traslado se estima de forma fija y se confirma según la distancia real.",
+  q_invoice: "Solicitar invoice con esta cotización",
+  c1: "<strong>Objeto.</strong> El fotógrafo prestará los servicios fotográficos descritos en la cotización aprobada por el cliente.",
+  c2: "<strong>Reserva.</strong> La fecha queda reservada con un anticipo del 30% del total. El anticipo no es reembolsable.",
+  c3: "<strong>Pago.</strong> El saldo restante se paga el día de la sesión o antes de la entrega del material final. Se emite invoice por cada pago.",
+  c4: "<strong>Entrega.</strong> Galería digital en alta resolución en un plazo de 7 a 14 días hábiles después de la sesión, salvo acuerdo distinto.",
+  c5: "<strong>Derechos de uso.</strong> El fotógrafo conserva los derechos de autor. El cliente recibe una licencia de uso según lo acordado (personal o comercial). El fotógrafo podrá mostrar las fotografías en su portafolio, salvo que el cliente solicite lo contrario por escrito.",
+  c6: "<strong>Cancelación.</strong> El cliente puede cancelar o reprogramar con un mínimo de 72 horas de aviso. El anticipo no es reembolsable, pero puede aplicarse a una nueva fecha dentro de 60 días.",
+  c7: "<strong>Fuerza mayor.</strong> Si el clima u otra causa mayor impide la sesión, se reprograma sin costo adicional.",
+  c8: "<strong>Aceptación.</strong> Al solicitar un invoice, el cliente confirma haber leído y aceptado este contrato.",
+  c_fine: "Contrato base de referencia. Los términos finales de cada proyecto se confirman por escrito antes de la sesión.",
+  c_print: "Imprimir contrato",
+  i_name: "Nombre completo *", ph_name: "Tu nombre", i_email: "Email *", ph_email: "tucorreo@ejemplo.com",
+  i_phone: "Teléfono (opcional)", i_date: "Fecha tentativa", i_details: "Detalles del proyecto",
+  ph_details: "Cuéntame qué tienes en mente: lugar, cantidad de personas, idea general…",
+  i_accept: 'He leído y acepto el <a href="#contrato">contrato de servicios</a>. *',
+  i_send: "Enviar solicitud",
+  i_hint: "Al enviar, se abrirá tu app de correo con la solicitud lista para mandar. Sin compromiso.",
+  footer: "© 2026 Badbalance · Página en mantenimiento — versión de prueba",
+  aria_less: "Menos horas", aria_more: "Más horas",
+  rate_line: (b, i, r) => `Desde $${b} · incluye ${i}h · +$${r}/h extra`,
+  row_base: (n, i) => `${n} — base (incluye ${i}h)`,
+  row_extra: (h, r) => `Horas extra: ${h}h × $${r}`,
+  row_travel: "Traslado estimado"
+},
+en: {
+  title: "Services & booking — Badbalance",
+  meta_desc: "Badbalance photography services: quote your session, review the contract and request your invoice.",
+  maintenance: "⚠ Page under maintenance — test version: estimated prices, not final",
+  back: "← Back to portfolio", kicker: "Booking", h1: "Services &amp; Invoice",
+  lede: "Build your quote in seconds: choose the service, hours and address, and get an approximate price. All with contract and invoice.",
+  s1: "Services", s2: "Quote estimator", s3: "Service contract", s4: "Request invoice",
+  test_prices: "Test prices.",
+  test_note: "Prices shown are approximate and in testing: we're working on the official rate card. The final quote is confirmed in writing before the session.",
+  f_service: "Service", f_hours: "Session hours", hrs: "hrs", f_addr: "Session address",
+  ph_addr: "E.g. 1021 Charles Joseph Cv, Hutto TX",
+  q_title: "Your approximate quote", q_total: "Estimated total",
+  q_note: "* Approximate test price. Travel is estimated at a flat rate and confirmed based on actual distance.",
+  q_invoice: "Request invoice with this quote",
+  c1: "<strong>Scope.</strong> The photographer will provide the photography services described in the client-approved quote.",
+  c2: "<strong>Booking.</strong> The date is reserved with a 30% deposit of the total. The deposit is non-refundable.",
+  c3: "<strong>Payment.</strong> The remaining balance is due on the session day or before delivery of the final material. An invoice is issued for each payment.",
+  c4: "<strong>Delivery.</strong> High-resolution digital gallery within 7 to 14 business days after the session, unless agreed otherwise.",
+  c5: "<strong>Usage rights.</strong> The photographer retains copyright. The client receives a usage license as agreed (personal or commercial). The photographer may display the photographs in their portfolio, unless the client requests otherwise in writing.",
+  c6: "<strong>Cancellation.</strong> The client may cancel or reschedule with a minimum of 72 hours' notice. The deposit is non-refundable but may be applied to a new date within 60 days.",
+  c7: "<strong>Force majeure.</strong> If weather or another major cause prevents the session, it will be rescheduled at no additional cost.",
+  c8: "<strong>Acceptance.</strong> By requesting an invoice, the client confirms having read and accepted this contract.",
+  c_fine: "Reference base contract. Final terms for each project are confirmed in writing before the session.",
+  c_print: "Print contract",
+  i_name: "Full name *", ph_name: "Your name", i_email: "Email *", ph_email: "youremail@example.com",
+  i_phone: "Phone (optional)", i_date: "Tentative date", i_details: "Project details",
+  ph_details: "Tell me what you have in mind: location, number of people, general idea…",
+  i_accept: 'I have read and accept the <a href="#contrato">service contract</a>. *',
+  i_send: "Send request",
+  i_hint: "On submit, your mail app will open with the request ready to send. No commitment.",
+  footer: "© 2026 Badbalance · Page under maintenance — test version",
+  aria_less: "Fewer hours", aria_more: "More hours",
+  rate_line: (b, i, r) => `From $${b} · includes ${i}h · +$${r}/h extra`,
+  row_base: (n, i) => `${n} — base (includes ${i}h)`,
+  row_extra: (h, r) => `Extra hours: ${h}h × $${r}`,
+  row_travel: "Estimated travel"
+}
+};
+let currentLangS = "es";
+try { currentLangS = localStorage.getItem("badbalance-lang") || "es"; } catch (e) {}
+if (currentLangS !== "en") currentLangS = "es";
+const langToggleS = document.getElementById("langToggle");
+function setLangS(l) {
+  currentLangS = l;
+  try { localStorage.setItem("badbalance-lang", l); } catch (e) {}
+  document.documentElement.lang = l;
+  const t = I18N_S[l];
+  document.title = t.title;
+  const md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute("content", t.meta_desc);
+  document.querySelectorAll("[data-i18n]").forEach(function (el) {
+    const k = el.getAttribute("data-i18n");
+    if (typeof t[k] === "string") el.innerHTML = t[k];
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach(function (el) {
+    const k = el.getAttribute("data-i18n-aria");
+    if (typeof t[k] === "string") el.setAttribute("aria-label", t[k]);
+  });
+  document.querySelectorAll("[data-i18n-ph]").forEach(function (el) {
+    const k = el.getAttribute("data-i18n-ph");
+    if (typeof t[k] === "string") el.setAttribute("placeholder", t[k]);
+  });
+  langToggleS.textContent = (l === "es") ? "EN" : "ES";
+  langToggleS.setAttribute("aria-label", (l === "es") ? "Switch to English" : "Cambiar a español");
+  renderServices();
+  buildSelect();
+  calc();
+}
+langToggleS.addEventListener("click", function () { setLangS(currentLangS === "es" ? "en" : "es"); });
 
 let state = { service: SERVICES[0].id, hours: 2 };
 
 // Service cards
 const cardsEl = $('serviceCards');
-SERVICES.forEach(s => {
-  const d = document.createElement('div');
-  d.className = 'service' + (s.id === state.service ? ' selected' : '');
-  d.dataset.id = s.id;
-  d.innerHTML = `<h3>${s.name}</h3><p>${s.desc}</p><div class="rate">Desde $${s.base} · incluye ${s.included}h · +$${s.rate}/h extra</div>`;
-  d.addEventListener('click', () => {
-    state.service = s.id;
-    $('q-servicio').value = s.id;
-    document.querySelectorAll('.service').forEach(c => c.classList.toggle('selected', c.dataset.id === s.id));
-    calc();
-    document.getElementById('cotizador').scrollIntoView({ behavior: 'smooth' });
+function renderServices() {
+  cardsEl.innerHTML = '';
+  const t = I18N_S[currentLangS];
+  SERVICES.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'service' + (s.id === state.service ? ' selected' : '');
+    d.dataset.id = s.id;
+    d.innerHTML = `<h3>${sname(s)}</h3><p>${sdesc(s)}</p><div class="rate">${t.rate_line(s.base, s.included, s.rate)}</div>`;
+    d.addEventListener('click', () => {
+      state.service = s.id;
+      $('q-servicio').value = s.id;
+      document.querySelectorAll('.service').forEach(c => c.classList.toggle('selected', c.dataset.id === s.id));
+      calc();
+      document.getElementById('cotizador').scrollIntoView({ behavior: 'smooth' });
+    });
+    cardsEl.appendChild(d);
   });
-  cardsEl.appendChild(d);
-});
+}
+renderServices();
 
 // Estimator
 const sel = $('q-servicio');
-SERVICES.forEach(s => {
-  const o = document.createElement('option');
-  o.value = s.id; o.textContent = s.name;
-  sel.appendChild(o);
-});
+function buildSelect() {
+  const keep = sel.value || state.service;
+  sel.innerHTML = '';
+  SERVICES.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s.id; o.textContent = sname(s);
+    sel.appendChild(o);
+  });
+  sel.value = keep;
+}
+buildSelect();
 sel.addEventListener('change', () => {
   state.service = sel.value;
   document.querySelectorAll('.service').forEach(c => c.classList.toggle('selected', c.dataset.id === state.service));
@@ -303,11 +435,12 @@ function currentQuote() {
 function money(n) { return '$' + n.toLocaleString('en-US'); }
 function calc() {
   const q = currentQuote();
+  const t = I18N_S[currentLangS];
   const rows = [
-    [`${q.s.name} — base (incluye ${q.s.included}h)`, money(q.s.base)],
+    [t.row_base(sname(q.s), q.s.included), money(q.s.base)],
   ];
-  if (q.extraH > 0) rows.push([`Horas extra: ${q.extraH}h × $${q.s.rate}`, money(q.extraCost)]);
-  if (q.travel > 0) rows.push([`Traslado estimado`, money(q.travel)]);
+  if (q.extraH > 0) rows.push([t.row_extra(q.extraH, q.s.rate), money(q.extraCost)]);
+  if (q.travel > 0) rows.push([t.row_travel, money(q.travel)]);
   $('q-lines').innerHTML = rows.map(r => `<div class="qline"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('');
   $('q-total').textContent = money(q.total);
 }
@@ -349,6 +482,9 @@ $('invoiceForm').addEventListener('submit', function (e) {
   const body = encodeURIComponent(lines.join('\n'));
   window.location.href = 'mailto:marlonjuniorgh@gmail.com?subject=' + subject + '&body=' + body;
 });
+
+// Apply saved language on load
+setLangS(currentLangS);
 </script>
 </body>
 </html>
